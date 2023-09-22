@@ -1,0 +1,176 @@
+[
+{
+	"uri": "/6-backupstore/6.1-backupmanual/",
+	"title": "Back Up Manual",
+	"tags": [],
+	"description": "",
+	"content": " Chose Take Snapshot Select the DB instance you want to create a snapshot for. Add name to Snapshot : rds-mysql-snapshot Create snapshot success. "
+},
+{
+	"uri": "/4-multiscaling/4.1-multi/",
+	"title": "Change to Multi AZ RDS",
+	"tags": [],
+	"description": "",
+	"content": " Chọn Database Chọn tab Configuration Kiểm tra Multi-Az. Ở đây sẽ hiện No vì chúng ta chưa cấu hình cho Database được phép hoạt động nhiều hơn 1 AZ. 2.Chọn Modify\nChọn Convert to Multi-AZ deployment Chọn Apply immediately Click Convert to Multi-AZ Việc chuyển đổi sẽ mất một vài phút. Sau khi chuyển đổi thành công, kiểm tra lại đối với tab Configuration sẽ thấy hiện Multi-Az thành YES "
+},
+{
+	"uri": "/3-createrds/3.1-createinstance/",
+	"title": "Create RDS Database Instance",
+	"tags": [],
+	"description": "",
+	"content": " Tìm kiếm RDS Chọn Create Database Chọn Standard Create Chọn Engine Option : MySQL Chọn Templates Dev/Test Chọn Availability and durability : Single DB instance Điền DB instance identifier : rds-mysql-lab Điền Master username , ở đây ta sẽ set là sa Nhập Master password và Confirm master password , ở đây ta sẽ set là abcd1234 Chọn Instance configuration : db.m5.xlarge Trong phần Storge , chọn Storage type : IOPS SSD io1 Nhập Allocated storage : 100 Nhập Provisioned IOPS : 1000 Trong phần Storage autoscaling, điền Maximum storage threshold : 111 Trong phần Connectivity , chọn Connect to an EC2 compute resource Chọn EC2 instance trùng với EC2 đã connect với Cloud9 đã review ở phần trước Trong VPC security group (firewall), Chọn Choose existing Chọn Security Group đã tạo trước đó rds-mysql-sg Nhấn Create Database Kiểm tra trạng thái tạo của Database. Việc tạo có thể mất tới 10 phút. Khi Status chuyển sang Availabel có nghĩa là việc tạo Database đã thành công. "
+},
+{
+	"uri": "/2-prerequiste/2.1-createvpc/",
+	"title": "Create VPC",
+	"tags": [],
+	"description": "",
+	"content": "Creat VPC Go to VPC Click Your VPCs. Then Click Create VPC. Select VPC only Add name tag my-rds-vpc. Add IPv4 CIDR 172.30.0.0/16. Select Create VPC Check VPC status "
+},
+{
+	"uri": "/1-introduce/",
+	"title": "Introduction",
+	"tags": [],
+	"description": "",
+	"content": "RDS - Relational Database Service is a service that helps users create and manage Relational Databases (SQL in relational form).\nKey Features\nIt is a DaaS (Database as a Service). Allows users to create either a database instance or a cluster of instances. It can scale in two ways: Vertical Scaling: Increase or decrease the instance configuration. Horizontal Scaling: Add or remove nodes, but these nodes can only be read replicas. There is a maximum limit on the hard drive capacity (64 TB for MySQL, MariaDB, etc., and 16 TB for Microsoft SQL). Basic Features\nQuickly create basic DB instances or clusters. Automatic failover between master-slave instances in case of incidents. High Availability: Automatically configures standby instances, users only need to select. Scalability in terms of storage capacity. Automated backups. Adjust settings at the Database level using Parameter Groups. "
+},
+{
+	"uri": "/6-backupstore/6.2-backupauto/",
+	"title": "Back Up Auto",
+	"tags": [],
+	"description": "",
+	"content": " Select the DB for which you want to enable Auto Backup. Check Configuration BackUp Click Modify Chose BackUp Period : 1 day Start Time 15:00 UTC Click Continue Chose Apply immediately Click Modify DB instance "
+},
+{
+	"uri": "/2-prerequiste/2.2-createsubnet/",
+	"title": "Create Subnet",
+	"tags": [],
+	"description": "",
+	"content": "Create Subnet Go to VPC Click Subnet. Then Click Create Subnet. Select VPC ID (my-rds-vpc) Then Name your subnet pubic-subnet-01. Chose your Availability Zone. In this lab, i will chose ap-southeast-1a Change IPv4 to 172.30.0.0/24 Repeat the folowing step to create 2 more The Second one IPv4 is 172.30.1.0/24, name is pubic-subnet-02 and Availability Zone is ap-southeast-1b The Second one IPv4 is 172.30.2.0/24, name is pubic-subnet-03 and Availability Zone is ap-southeast-1c The result will be like in the picture "
+},
+{
+	"uri": "/2-prerequiste/",
+	"title": "Preparation ",
+	"tags": [],
+	"description": "",
+	"content": "The lab uses multiple AWS services such as VPC, EC2, Cloud9, and RDS.\nVPC (Virtual Private Cloud): You\u0026rsquo;ll set up a Virtual Private Cloud, which is an isolated network environment within AWS. This will help you control the networking aspects of your RDS instance.\nEC2 (Elastic Compute Cloud): EC2 instances are used for various purposes, including potentially hosting applications that interact with your RDS database. You may create EC2 instances to simulate different use cases.\nCloud9: AWS Cloud9 is an integrated development environment (IDE) that you can use to write and execute code. You might use Cloud9 to develop and test applications that connect to your RDS database.\nRDS (Relational Database Service): The primary focus of the lab is on RDS. You will work with RDS to create, configure, and manage relational databases. This includes creating database instances, setting up automatic backups, configuring security groups, and possibly implementing high availability solutions.\nContent Create VPC Create Subnet Create Route Table Create Internet Gateway Create Security Group Create And Connect To Cloud9 "
+},
+{
+	"uri": "/3-createrds/3.2-reviewendpoint/",
+	"title": "Review RDS Endpoint and Connect with Cloud 9",
+	"tags": [],
+	"description": "",
+	"content": " Chose your RDS you just create. In Connectivity \u0026amp; security Review value of the Enpoint and Save the value. Open Cloud9 and connect. Close all the tab that no need. Add new terminal. 5 . Check and Connect To Database by this following code.\nmysql -h[DBEndpoint] -u$DBUSER -p\u0026#34;$DBPASS\u0026#34; -e\u0026#34;SELECT @@version;\u0026#34; [DBEndpoint] is Endpoint value , $DBUSER is username , $DBPASS is password\nWhen all the value is correct, the result will be in the picture.\n"
+},
+{
+	"uri": "/4-multiscaling/4.2-scaling/",
+	"title": "Scaling RDS",
+	"tags": [],
+	"description": "",
+	"content": "Chúng ta cũng có thể chỉnh sửa cấu hình của Database dựa theo nhu cầu thực tế của project.\n1.Click vào RDS và click vào nút Modify.\n2 Chỉnh sửa Allocated Storge thành 500\nProvisioned IOPS thành 5000 2 Chỉnh sửa Maxium Thresh hold thành 550\nChọn Multi-AZ Deployment Nhấn Continue Chọn Apply Immediately và chọn Modify DB instance Ta cũng có thể chỉnh được Instance Type của DB lên cấu hình mạnh hơn. Kiểm tra cấu hình vừa mới thay đổi "
+},
+{
+	"uri": "/3-createrds/",
+	"title": "Create RDS Database",
+	"tags": [],
+	"description": "",
+	"content": "Content Create RDS Instance Review RDS Endpoint and Connect with Cloud 9 CRUD with RDS "
+},
+{
+	"uri": "/2-prerequiste/2.3-creatertb/",
+	"title": "Create Route Table",
+	"tags": [],
+	"description": "",
+	"content": "Create Subnet Go to VPC Click Route tables. Then Click Create Route tables. Add name tag rds-rtb, then chose VPC you just create my-rds-vpc Click Create Route table Check Route Table details Chose Route tables you just create Click Subnet associations Click Edit Subnet associations Chose Public subnet, then click Save associations. The result will be notify success "
+},
+{
+	"uri": "/3-createrds/3.3-review/",
+	"title": "CRUD with RDS",
+	"tags": [],
+	"description": "",
+	"content": "Chúng ta sẽ thực hiện một vài theo tác CRUD cơ bản đối với RDS thông qua Cloud9 và các lệnh sau.\n[DBEndpoint] is Endpoint value , $DBUSER is username , $DBPASS is password\nCreate Database employee mysql -h[DBEndpoint] -u$DBUSER -p\u0026#34;$DBPASS\u0026#34; -e\u0026#34;CREATE DATABASE employee;\u0026#34; Connect to Database employee mysql -h[DBEndpoint] -u$DBUSER -p\u0026#34;$DBPASS\u0026#34; employee Using Database use employee; Create table Employee CREATE TABLE employees (\rid INT NOT NULL PRIMARY KEY AUTO_INCREMENT,\rname VARCHAR(100) NOT NULL,\raddress VARCHAR(255) NOT NULL,\rsalary INT(10) NOT NULL,\rjoinDate Datetime NOT NULL\r); Add record INSERT INTO `employee`.`employees`\r(\r`name`,\r`address`,\r`salary`,\r`joinDate`)\rVALUES\r(\u0026#39;Toan\u0026#39;,\u0026#39;Hai Ba Trung, HN\u0026#39;,\u0026#39;2500000\u0026#39;,\u0026#39;2021-03-09\u0026#39;),\r(\u0026#39;Thai\u0026#39;,\u0026#39;Cau Giay, HN\u0026#39;,\u0026#39;10000000\u0026#39;,\u0026#39;2021-03-09\u0026#39;),\r(\u0026#39;Lam\u0026#39;,\u0026#39;Cau Giay, HN\u0026#39;,\u0026#39;15000000\u0026#39;,\u0026#39;2020-11-01\u0026#39;),\r(\u0026#39;Duy\u0026#39;,\u0026#39;Nam Tu Liem, HN\u0026#39;,\u0026#39;15000000\u0026#39;,\u0026#39;2020-11-01\u0026#39;); Query data select * from employees; Update data and requery update employees set name = \u0026#39;Nguyen The Khanh Toan\u0026#39; where id = 1;\rselect * from employees; "
+},
+{
+	"uri": "/6-backupstore/6.3-restoresnap/",
+	"title": "Restore From Snapshot",
+	"tags": [],
+	"description": "",
+	"content": "In this section, we will restore the database from the snapshot that we created in the Manual Backup section.\nChose Tab Snapshot Click Action, then select Restore snapshot Select Restore DB instance Check the status of the restored database. Check the status and Endpoint of the restored database. "
+},
+{
+	"uri": "/4-multiscaling/",
+	"title": "Change To Multiple ",
+	"tags": [],
+	"description": "",
+	"content": "Content Multi-AZ Scaling "
+},
+{
+	"uri": "/2-prerequiste/2.4-createintgtw/",
+	"title": "Create Internet Gateway",
+	"tags": [],
+	"description": "",
+	"content": " Go to VPC Click Internet Gateway on the left off the screen. Then Click Create Internet Gateway. Add name tag rds-int-gtw, then click Create Internet Gateway. Click Attach to a VPC Chose Availiable VPC my-rds-vpc, then click Attach internet gateway Chose Route Tables on the left off the screen. Click on rds-rtb. Click Routes tab. Click Edit routes. Click on Add route Chose Destinations 0.0.0.0/0. Chose Target Internet Gateway. 7.Chose internet gateway that you just create, then Save Changes.\n"
+},
+{
+	"uri": "/5-read/",
+	"title": "Create RDS Read Replica ",
+	"tags": [],
+	"description": "",
+	"content": "In this section, we will create a database that runs in parallel with the existing database but is only used for reading data. This helps distribute the load on the original database.\n1.Access to RDS\nChose Actions Click Create read replica Chose Replica Source : rds-mysql-lab Add DB instance identifier : rds-read Click DB instance type : db.m5.large Click Create read replica The database will be created within a few minutes. Check the Endpoint of the original database. Check the Endpoint of the original database READ. Use Cloud9 to connect to the 2 databases using the following commands. mysql -h[DBEndpoint] -u$DBUSER -p\u0026#34;$DBPASS\u0026#34; employee In this, replace both the Endpoint of the original database and the Endpoint of the read database to test.\nTry updating the original database, and you should see it successful with the data changed.\nTry updating the read database, and you should encounter an error and be unable to update.\n"
+},
+{
+	"uri": "/2-prerequiste/2.5-createsg/",
+	"title": "Create Security Group",
+	"tags": [],
+	"description": "",
+	"content": " In the Security Group interface Click Create security group Add name tag rds-mysql-sg Add Description rds-mysql-sg Chose VPC you create. Add all the inbounds rule the pictures. Type : All Trafics, Source : Anywhere-Ipv4 Type : SSH, Source : Anywhere-Ipv4 Type : HTTP, Source : Anywhere-Ipv4 Type : HTTPS, Source : Anywhere-Ipv4 Type : MYSQL/Aurora, Source : Anywhere-Ipv4 Click Create Security Group "
+},
+{
+	"uri": "/6-backupstore/",
+	"title": "Back Up and Restore",
+	"tags": [],
+	"description": "",
+	"content": "Content Backup Manual Auto BackUp Restore From Snapshot "
+},
+{
+	"uri": "/2-prerequiste/2.6-createandconnectc9/",
+	"title": "Create Cloud9",
+	"tags": [],
+	"description": "",
+	"content": " Go to Cloud9 Click Create enviroment Add name tag rds-mysql-lab-cloud9 Add Description rds-mysql-lab-cloud9 Chose Enviroment type New EC2 instance Chose instance type t3.small In Network Settings Chose Secure Shell(SSH) Chose your VPC my-rds-vpc Chose subnet public-sybnet-01 Click Create Go to EC2 to check your EC2 Back to your Cloud9 and Click Open "
+},
+{
+	"uri": "/7-blue-green/",
+	"title": "Create Blue-Green Enviroment",
+	"tags": [],
+	"description": "",
+	"content": "\rBlue-Green environment is a deployment strategy that involves having two separate environments, one \u0026ldquo;blue\u0026rdquo; (the current production environment) and the other \u0026ldquo;green\u0026rdquo; (the new environment you want to deploy). This approach offers several benefits:\nZero Downtime Deployment: Blue-Green deployments allow you to switch from the current environment to the new one without any downtime. You can direct traffic to the green environment while keeping the blue one running, and then switch back if any issues arise.\nQuick Rollback: If there are problems with the green environment, you can quickly switch back to the blue one, ensuring minimal disruption to users.\nTesting: You can thoroughly test the green environment before directing real traffic to it. This ensures that your new version is stable and performs as expected.\nReduced Risk: Blue-Green deployments reduce the risk of introducing issues into the production environment since you can validate the green environment before making it live.\nScalability Testing: You can also use the green environment to test scalability and performance under real traffic conditions before promoting it to production.\nConsistency: It helps maintain consistency between environments, as the green environment is identical to the blue one except for the changes you intend to deploy.\nIsolation: The blue and green environments are isolated from each other, reducing the chances of conflicts or interference between old and new code.\nSelect Actions Chose Create Blue/Green Deployment - new Add name to Blue/Green Indentifier : rds-mysql-lab Chose engine version for Blue/Green setting : MYSQL-8.0.34-recommended Click Create Staging enviroment The creation process can take anywhere from 25 to 30 minutes. Review the Endpoint of both the Blue and Green versions. Using Cloud9 to connect and check 2 both the Blue and Green versions. Next, We will try to switch over between 2 enviroment. Switch Over Complete. "
+},
+{
+	"uri": "/8-cleanup/",
+	"title": "Clean up resources",
+	"tags": [],
+	"description": "",
+	"content": "We will take the following steps to delete the resources we created in this exercise.\nDelete Cloud9 Access to Cloud9 Click Delete 2.Type Delete\nClick Delete Delete CLoud9 Complte Delete RDS Instance Access to RDS Chose DB Instance Click Actions Click Delete Perform this step for each of the instances created in the lab, one at a time. Access SnapShot Delete all snap you create. Delete VPC Access VPC service management console Click Your VPCs. Click on Lab VPC. Click Actions. Click Delete VPC. In the confirm box, enter delete to confirm, click Delete to delete Lab VPC and related resources. "
+},
+{
+	"uri": "/",
+	"title": "RDS",
+	"tags": [],
+	"description": "",
+	"content": "Amazon RDS for MySQL Labs Overall Welcome to the AWS Workshop and Lab Content Portal for RDS MySQL , a managed database version of one of the world\u0026rsquo;s most popular open source relational database. This workshop aims to Database Administrators, Application Developers or Database Enthusiast. Here you will find a collection of hands-on content aimed at helping you gain an understanding of RDS MySQL features and best practices. This site contain RDS MySQL workshop, which is a collection of easy-to-follow instructions, scripts, and tutorial data. Prior expertise with AWS, RDS and MySQL databases is beneficial but not required to complete this workshop.\nContent Introduction Preparation Connect to EC2 instance Manage session logs Port Forwarding Clean up resources "
+},
+{
+	"uri": "/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+}]

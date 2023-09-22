@@ -1,0 +1,176 @@
+[
+{
+	"uri": "/vi/",
+	"title": "RDS",
+	"tags": [],
+	"description": "",
+	"content": "Amazon RDS for MySQL Labs Overall Welcome to the AWS Workshop and Lab Content Portal for RDS MySQL , a managed database version of one of the world\u0026rsquo;s most popular open source relational database. This workshop aims to Database Administrators, Application Developers or Database Enthusiast. Here you will find a collection of hands-on content aimed at helping you gain an understanding of RDS MySQL features and best practices. This site contain RDS MySQL workshop, which is a collection of easy-to-follow instructions, scripts, and tutorial data. Prior expertise with AWS, RDS and MySQL databases is beneficial but not required to complete this workshop.\nContent Introduction Preparation Connect to EC2 instance Manage session logs Port Forwarding Clean up resources "
+},
+{
+	"uri": "/vi/6-backupstore/6.1-backupmanual/",
+	"title": "Back Up Manual",
+	"tags": [],
+	"description": "",
+	"content": " Chọn Actions Chọn Take Snapshot Chọn DB instance bạn muốn tạo snapshot Điền tên Snapshot : rds-mysql-snapshot Tạo snapshot thành công. Click Actions "
+},
+{
+	"uri": "/vi/4-multiscaling/4.1-multi/",
+	"title": "Change to Multi AZ RDS",
+	"tags": [],
+	"description": "",
+	"content": " Chose Database Chose tab Configuration Check Multi-Az. Here, it will display No because we haven\u0026rsquo;t configured the database to operate across multiple Availability Zones (AZs) yet. 2.Chose Modify\nClick Convert to Multi-AZ deployment Chose Apply immediately Click Convert to Multi-AZ The conversion process will take a few minutes. After a successful conversion, when you check the Configuration tab, you will see that Multi-Az is displayed as YES. "
+},
+{
+	"uri": "/vi/3-createrds/3.1-createinstance/",
+	"title": "Create RDS Database Instance",
+	"tags": [],
+	"description": "",
+	"content": " Tìm kiếm RDS Chọn Create Database Chọn Standard Create Chọn Engine Option : MySQL Chọn Templates Dev/Test Chọn Availability and durability : Single DB instance Điền DB instance identifier : rds-mysql-lab Điền Master username , ở đây ta sẽ set là sa Nhập Master password và Confirm master password , ở đây ta sẽ set là abcd1234 Chọn Instance configuration : db.m5.xlarge Trong phần Storge , chọn Storage type : IOPS SSD io1 Nhập Allocated storage : 100 Nhập Provisioned IOPS : 1000 Trong phần Storage autoscaling, điền Maximum storage threshold : 111 Trong phần Connectivity , chọn Connect to an EC2 compute resource Chọn EC2 instance trùng với EC2 đã connect với Cloud9 đã review ở phần trước Trong VPC security group (firewall), Chọn Choose existing Chọn Security Group đã tạo trước đó rds-mysql-sg Nhấn Create Database Kiểm tra trạng thái tạo của Database. Việc tạo có thể mất tới 10 phút. Khi Status chuyển sang Availabel có nghĩa là việc tạo Database đã thành công. "
+},
+{
+	"uri": "/vi/2-prerequiste/2.1-createvpc/",
+	"title": "Create VPC",
+	"tags": [],
+	"description": "",
+	"content": "Creat VPC truy cập tới VPC Chọn Your VPCs. Sau đó chọn Create VPC. Chọn VPC only Thêm name tag my-rds-vpc. Thêm IPv4 CIDR 172.30.0.0/16. Chọn Create VPC Kiểm tra trạng thái VPC "
+},
+{
+	"uri": "/vi/1-introduce/",
+	"title": "Giới thiệu",
+	"tags": [],
+	"description": "",
+	"content": "RDS - Relational Database Service là một service giúp cho người dùng tạo và quản lý các Relational Database (SQL dạng quan hệ)\nĐặc trưng cơ bản\nLà một DaaS (Database as a Service) Cho phép người dùng tạo ra database instance hoặc 1 cụm instance. Có thể scale theo 2 hình thức : Scale virtical : tăng hoặc giảm cấu hình instance. Scale horizontal : thêm hoặc bớt node tuy nhiên node này chỉ có thể read ( read-replica ). Có giới hạn về dung lượng ổ cứng tối đa (64 TB đối với MySQL, MariaDB,\u0026hellip; 16TB đối với Microsoft SQL). Các tính năng cơ bản\nTạo các DB instance cơ bản hoặc cụm cluster nhanh chóng. Tự động fail-over giữa master-slave instance khi có sự cố. High-Availability: tự động cấu hình instance stand by, người dùng chỉ cần chọn. Có thể scale dung lượng. Automate back-up. Chỉnh sửa setting ở cấp độ Database sử dụng Parameter Group "
+},
+{
+	"uri": "/vi/6-backupstore/6.2-backupauto/",
+	"title": "Back Up Auto",
+	"tags": [],
+	"description": "",
+	"content": " Chọn DB cần thực hiện Auto BackUp Kiểm tra cấu hình BackUp Chọn Modify Chọn BackUp Period : 1 day Start Time 15:00 UTC Chọn Continue Chọn Apply immediately Chọn Modify DB instance "
+},
+{
+	"uri": "/vi/2-prerequiste/",
+	"title": "Các bước chuẩn bị",
+	"tags": [],
+	"description": "",
+	"content": "Bài lab sử dụng nhiều dịch vụ của AWS như VPC, EC2, Cloud9, RDS.\nVPC (Virtual Private Cloud): Bạn sẽ thiết lập một Mạng riêng ảo (Virtual Private Cloud - VPC), đây là một môi trường mạng cách biệt trong AWS. Điều này sẽ giúp bạn kiểm soát các khía cạnh mạng của trường hợp RDS của bạn.\nEC2 (Elastic Compute Cloud): Các phiên bản EC2 được sử dụng cho nhiều mục đích, bao gồm việc lưu trữ ứng dụng có thể tương tác với cơ sở dữ liệu RDS của bạn. Bạn có thể tạo các phiên bản EC2 để mô phỏng các tình huống sử dụng khác nhau.\nCloud9: AWS Cloud9 là một môi trường phát triển tích hợp (IDE) mà bạn có thể sử dụng để viết và thực thi mã. Bạn có thể sử dụng Cloud9 để phát triển và kiểm tra các ứng dụng kết nối với cơ sở dữ liệu RDS của bạn.\nRDS (Relational Database Service): Trọng tâm chính của bài thực hành là về RDS. Bạn sẽ làm việc với RDS để tạo, cấu hình và quản lý cơ sở dữ liệu quan hệ. Điều này bao gồm việc tạo các trường hợp cơ sở dữ liệu, thiết lập sao lưu tự động, cấu hình nhóm bảo mật và có thể triển khai các giải pháp có tính sẵn sàng cao.\nContent Create VPC Create Subnet Create Route Table Create Internet Gateway Create Security Group Create And Connect To Cloud9 "
+},
+{
+	"uri": "/vi/2-prerequiste/2.2-createsubnet/",
+	"title": "Create Subnet",
+	"tags": [],
+	"description": "",
+	"content": "Create Subnet Truy cập tới VPC Chọn Subnet. Tiếp đó chọn Create Subnet. Chọn VPC ID (my-rds-vpc) Đổi tên thành pubic-subnet-01. Chọn Availability Zone. Trong bài lab này, ta sẽ chọn ap-southeast-1a Đổi IPv4 thành 172.30.0.0/24 Lặp lại các bước trên, tạo thêm 2 subnet nữa.\nSubnet thứ 2 có IPv4 là 172.30.1.0/24, tên pubic-subnet-02 và Availability Zone : ap-southeast-1b Subnet thứ 3 có IPv4 là 172.30.2.0/24, tên pubic-subnet-03 và Availability Zone : ap-southeast-1c Kết quả sau khi tạo đủ 3 subnet.\n"
+},
+{
+	"uri": "/vi/3-createrds/3.2-reviewendpoint/",
+	"title": "Review RDS Endpoint and Connect with Cloud 9",
+	"tags": [],
+	"description": "",
+	"content": " Chọn vào database vừa mới tạo. Trong tab Connectivity \u0026amp; security Kiểm tra giá trị endpoint và lưu lại giá trị. Mở Cloud9 và kết nối. Sau đó tắt các tab không cần thiết Thêm một terminal mới. 5 . Kiểm tra và kết nối với Database thông qua Cloud9 với cấu lệnh sau.\nmysql -h[DBEndpoint] -u$DBUSER -p\u0026#34;$DBPASS\u0026#34; -e\u0026#34;SELECT @@version;\u0026#34; Trong đó [DBEndpoint] sẽ là giá trị end-point RDS tạo ra , $DBUSER là username đăng nhập , $DBPASS là password\nKhi nhập chính xác các thông tin trên, kết quả sẽ hiển thị như màn hình phía dưới.\n"
+},
+{
+	"uri": "/vi/4-multiscaling/4.2-scaling/",
+	"title": "Scaling RDS",
+	"tags": [],
+	"description": "",
+	"content": "We can also customize the configuration of the database based on the actual needs of the project.\n1.Click on RDS and then click on the Modify button.\n2 Adjust Allocated Storge to 500\nProvisioned IOPS to 5000 Adjust Maxium Thresh hold to 550 Click Multi-AZ Deployment Click Continue Chose Apply Immediately then Click Modify DB instance We can also adjust the Instance Type of the DB to a more powerful configuration. Check the configuration that has just been modified. "
+},
+{
+	"uri": "/vi/3-createrds/",
+	"title": "Create RDS Database",
+	"tags": [],
+	"description": "",
+	"content": "Test Header\nContent Create RDS Instance Review RDS Endpoint and Connect with Cloud 9 CRUD with RDS "
+},
+{
+	"uri": "/vi/2-prerequiste/2.3-creatertb/",
+	"title": "Create Route Table",
+	"tags": [],
+	"description": "",
+	"content": "Create Subnet Truy cập tới VPC Chọn Route tables. Sau đó chọn Create Route tables. Thêm name tag rds-rtb, sau đó chọn VPC bạn vừa tạo my-rds-vpc Tạo Create Route table Kiểm tra Route Table Details Chọn Routes Table bạn vừa tạo Chọn Subnet associations Chọn Edit Subnet associations Chọn Public subnet, sau đó chọn Save associations. Kết quả trả ra thành công. "
+},
+{
+	"uri": "/vi/3-createrds/3.3-review/",
+	"title": "CRUD with RDS",
+	"tags": [],
+	"description": "",
+	"content": " We will perform some basic CRUD (Create, Read, Update, Delete) operations on RDS through Cloud9 using the following commands.\nTrong đó [DBEndpoint] sẽ là giá trị end-point RDS tạo ra , $DBUSER là username đăng nhập , $DBPASS là password\nTạo Database tên là employee mysql -h[DBEndpoint] -u$DBUSER -p\u0026#34;$DBPASS\u0026#34; -e\u0026#34;CREATE DATABASE employee;\u0026#34; Kết nối tới Database employee mysql -h[DBEndpoint] -u$DBUSER -p\u0026#34;$DBPASS\u0026#34; employee Sử dụng database use employee; Tạo bảng Employee CREATE TABLE employees (\rid INT NOT NULL PRIMARY KEY AUTO_INCREMENT,\rname VARCHAR(100) NOT NULL,\raddress VARCHAR(255) NOT NULL,\rsalary INT(10) NOT NULL,\rjoinDate Datetime NOT NULL\r); Thêm dữ liệu vào bảng INSERT INTO `employee`.`employees`\r(\r`name`,\r`address`,\r`salary`,\r`joinDate`)\rVALUES\r(\u0026#39;Toan\u0026#39;,\u0026#39;Hai Ba Trung, HN\u0026#39;,\u0026#39;2500000\u0026#39;,\u0026#39;2021-03-09\u0026#39;),\r(\u0026#39;Thai\u0026#39;,\u0026#39;Cau Giay, HN\u0026#39;,\u0026#39;10000000\u0026#39;,\u0026#39;2021-03-09\u0026#39;),\r(\u0026#39;Lam\u0026#39;,\u0026#39;Cau Giay, HN\u0026#39;,\u0026#39;15000000\u0026#39;,\u0026#39;2020-11-01\u0026#39;),\r(\u0026#39;Duy\u0026#39;,\u0026#39;Nam Tu Liem, HN\u0026#39;,\u0026#39;15000000\u0026#39;,\u0026#39;2020-11-01\u0026#39;); Query dữ liệu bảng select * from employees; Update Dữ liệu và query lại. update employees set name = \u0026#39;Nguyen The Khanh Toan\u0026#39; where id = 1;\rselect * from employees; "
+},
+{
+	"uri": "/vi/6-backupstore/6.3-restoresnap/",
+	"title": "Restore From Snapshot",
+	"tags": [],
+	"description": "",
+	"content": "Phần này ta sẽ restore DB mà ta đã tạo snapshot ở phần Backup Manual\nChọn Tab Snapshot Chọn Action, sau đó chọn Restore snapshot Chọn Restore DB instance Kiểm tra trạng thái của DB vừa restore. Kiểm tra trạng thái và Enpoint của DB vừa restore "
+},
+{
+	"uri": "/vi/4-multiscaling/",
+	"title": "Change To Multiple ",
+	"tags": [],
+	"description": "",
+	"content": "Content Multi-AZ Scaling "
+},
+{
+	"uri": "/vi/2-prerequiste/2.4-createintgtw/",
+	"title": "Create Internet Gateway",
+	"tags": [],
+	"description": "",
+	"content": " Truy cập tới VPC Chọn Internet Gateway ở bên trái màn hình. Sau đó chọn Create Internet Gateway. Thêm name tag rds-int-gtw, sau đó chọn Create Internet Gateway. Chọn Attach to a VPC Chọn Availiable VPC my-rds-vpc, sau đó nhấn Attach internet gateway Chọn Route Tables ở bên trái màn hình. Click vào rds-rtb. Chọn Routes tab. Chọn Edit routes. Chọn Add route Đổi Destiny thành 0.0.0.0/0. Chọn Target Internet Gateway. 7.Chọn Internet Gateway bạn vừa tạo, sau đó ấn Save Changes.\n"
+},
+{
+	"uri": "/vi/5-read/",
+	"title": "Create RDS Read Replica ",
+	"tags": [],
+	"description": "",
+	"content": "Trong phần này, ta sẽ tạo ra một DB chạy song song với con DB đã tạo nhưng chỉ có tác dụng để đọc dữ liệu. Điều này giúp chia lưu lượng tải đối với DB gốc.\n1.Truy cập RDS\nChọn Actions Chọn Create read replica Chọn Replica Source : rds-mysql-lab Điền DB instance identifier : rds-read Chọn DB instance type : db.m5.large Chọn Create read replica DB sẽ được tạo trong vòng vài phút. Kiểm tra Endpoint của DB gốc Kiểm tra Endpoint của DB READ Sử dụng Cloud9 để kết nối với 2 DB sử dụng câu lệnh sau mysql -h[DBEndpoint] -u$DBUSER -p\u0026#34;$DBPASS\u0026#34; employee Trong đó, lần lượt thay thế của 2 Endpoint của DB gốc lẫn DB read để kiểm tra.\nThử update trên DB gốc, ta thấy thành công và dữ liệu đã thay đổi.\nThử update trên DB read, ta thấy đẩy ra lỗi và không thể update.\n"
+},
+{
+	"uri": "/vi/2-prerequiste/2.5-createsg/",
+	"title": "Create Security Group",
+	"tags": [],
+	"description": "",
+	"content": " Chọn danh mục Security Group Chọn Create security group Thêm name tag rds-mysql-sg Thêm Description rds-mysql-sg Chọn VPC bạn vừa tạo. Thêm các inbound rule như trong ảnh: Type : All Trafics, Source : Anywhere-Ipv4 Type : SSH, Source : Anywhere-Ipv4 Type : HTTP, Source : Anywhere-Ipv4 Type : HTTPS, Source : Anywhere-Ipv4 Type : MYSQL/Aurora, Source : Anywhere-Ipv4 Chọn Create Security Group "
+},
+{
+	"uri": "/vi/6-backupstore/",
+	"title": "Back Up and Restore",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/vi/2-prerequiste/2.6-createandconnectc9/",
+	"title": "Create Cloud9",
+	"tags": [],
+	"description": "",
+	"content": " Truy cập Cloud9 Chọn Create enviroment Thêm name tag rds-mysql-lab-cloud9 Thêm Description rds-mysql-lab-cloud9 Chọn Enviroment type New EC2 instance Chọn instance type t3.small Trong Network Settings Chọn Secure Shell(SSH) Chọn VPC my-rds-vpc Chọn subnet public-sybnet-01 Nhấn Create Truy cập EC2 để kiểm tra EC2 Instance vừa tạo. Quya trở lại Cloud9 và Chọn Open "
+},
+{
+	"uri": "/vi/7-blue-green/",
+	"title": "Create Blue-Green Enviroment",
+	"tags": [],
+	"description": "",
+	"content": "\rTriển Khai Không Downtime: Blue-Green deployment cho phép bạn chuyển từ môi trường hiện tại sang môi trường mới mà không có thời gian chết (downtime). Bạn có thể chuyển hướng lưu lượng vào môi trường xanh (green) trong khi vẫn giữ môi trường xanh (blue) hoạt động, và sau đó chuyển lại nếu có sự cố xảy ra.\nPhục Hồi Nhanh Chóng: Nếu có vấn đề với môi trường xanh, bạn có thể nhanh chóng chuyển lại môi trường xanh để đảm bảo tối thiểu hóa sự cản trở đối với người dùng.\nKiểm Tra: Bạn có thể kiểm tra môi trường xanh một cách kỹ lưỡng trước khi đưa lưu lượng thực tế vào đó. Điều này đảm bảo rằng phiên bản mới của bạn ổn định và hoạt động như mong đợi.\nGiảm Rủi Ro: Blue-Green deployment giảm nguy cơ gây ra sự cố trong môi trường sản xuất vì bạn có thể xác minh môi trường xanh trước khi cho phép nó hoạt động.\nKiểm Tra Khả Năng Mở Rộng: Bạn cũng có thể sử dụng môi trường xanh để kiểm tra tính mở rộng và hiệu suất dưới điều kiện lưu lượng thực tế trước khi đưa nó lên môi trường sản xuất.\nSự Đồng Nhất: Nó giúp duy trì sự đồng nhất giữa các môi trường, vì môi trường xanh giống hệt môi trường xanh ngoại trừ các thay đổi bạn dự định triển khai.\nCách Ly: Các môi trường blue và green được cách ly lẫn nhau, giảm nguy cơ xung đột hoặc can thiệp giữa mã cũ và mã mới.\nChọn Actions Chọn Create Blue/Green Deployment - new Điền tên cho Blue/Green Indentifier : rds-mysql-lab CHọn engine version cho Blue/Green setting : MYSQL-8.0.34-recommended Chọn Create Staging enviroment Quá trình tạo có thể mất từ 25-30 phút. Review Enpoint của 2 phiên bản Blue và Green. Sử dụng Cloud9 để kết nối và kiểm tra 2 phiên bản Blue và Green. Tiếp theo, ta sẽ thử chuyển đổi môi trường giữa Blue và Green cho nhau. Việc chuyển đổi hoàn tất. "
+},
+{
+	"uri": "/vi/8-cleanup/",
+	"title": "Dọn dẹp tài nguyên  ",
+	"tags": [],
+	"description": "",
+	"content": "We will take the following steps to delete the resources we created in this exercise.\nDelete Cloud9 Truy cập tới Cloud9 Tiếp đó nhấn Delete 2.Gõ xác nhận Delete\nSau đó bấm nút Delete Xóa thành công Delete RDS Instance Truy cập tới RDS Chọn DB Instance Nhấn Actions Nhấn Delete Làm lần lượt đối với các Instance tạo ra trong bài lab. Truy cập SnapShot Xóa các Snapshot đã tạo ra Delete VPC truy cập tới VPC service management console Click Your VPCs. Click on Lab VPC. Click Actions. Click Delete VPC. In the confirm box, enter delete to confirm, click Delete to delete Lab VPC and related resources. "
+},
+{
+	"uri": "/vi/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/vi/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+}]
